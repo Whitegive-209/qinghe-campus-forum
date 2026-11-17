@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="welcome">
+  <div><p class="eyebrow">青禾 · 校园交流空间</p><h1>校园很大，<br>在这里遇见同频的你<span class="accent">。</span></h1><p class="welcome-copy">一道难题、一场活动，或是今天想分享的小事。<br>把你的校园故事，写在这里。</p><a class="button" href="{% url 'post_create' %}"><span aria-hidden="true">＋</span> 发布帖子</a></div>
+  <div class="campus-board" aria-label="校园交流主题"><div class="board-heading"><span class="board-dot"></span>校园留言板 <small>正在发生</small></div><div class="board-note note-one"><span>学习交流</span><strong>一个人的难题，<br>可以一起解。</strong><small>分享知识，也收获新的思路。</small></div><div class="board-note note-two"><span>校园生活</span><strong>发现日常里的<br>一点新鲜。</strong><small>让每个普通的日子都有回声。</small></div><div class="board-bottom">学习 / 生活 / 分享 / 相遇</div></div>
+</section>
+<div class="forum-layout">
+<section class="feed" aria-label="帖子列表">
+  <div class="feed-heading"><div><p class="eyebrow">CAMPUS COMMUNITY</p><h2>{% if q %}搜索结果{% else %}校园动态{% endif %}</h2></div><span class="muted">{{ page_obj.paginator.count }} 篇帖子</span></div>
+  <form class="search" action="{% url 'home' %}" method="get" role="search"><label class="sr-only" for="search-q">搜索帖子标题或内容</label><input id="search-q" name="q" value="{{ q }}" maxlength="100" placeholder="搜索帖子标题或内容…"><input type="hidden" name="sort" value="{{ sort }}">{% if selected_category %}<input type="hidden" name="category" value="{{ selected_category }}">{% endif %}<button type="submit">搜索</button></form>
+  <div class="filter-row"><div class="tabs"><a class="{% if sort == 'new' %}active{% endif %}" href="?sort=new&amp;category={{ selected_category|urlencode }}&amp;q={{ q|urlencode }}">最新发布</a><a class="{% if sort == 'hot' %}active{% endif %}" href="?sort=hot&amp;category={{ selected_category|urlencode }}&amp;q={{ q|urlencode }}">热门讨论</a></div><span class="muted filter-hint">发现值得参与的话题</span></div>
+  <div class="category-chips" aria-label="分类筛选"><a class="chip {% if not selected_category %}selected{% endif %}" href="?sort={{ sort }}&amp;q={{ q|urlencode }}">全部</a>{% for category in categories %}<a class="chip {% if selected_category == category.slug %}selected{% endif %}" href="?category={{ category.slug }}&amp;sort={{ sort }}&amp;q={{ q|urlencode }}">{{ category.name }}</a>{% endfor %}</div>
+  {% if q %}<p class="search-summary">关键词「{{ q }}」的匹配结果 <a href="{% url 'home' %}">清除搜索</a></p>{% endif %}
+  {% include 'forum/post_list.html' %}
+  {% include 'forum/pagination.html' %}
+</section>
+<aside class="sidebar"><section class="side-card"><span class="small-label">在这里，放心交流</span><h3>先从一句你好开始。</h3><p>分享你的经验，认真回应他人。一个友善的回复，也能让校园生活更温暖。</p><a class="aside-link" href="{% url 'post_create' %}">写下你的第一篇帖子 <span aria-hidden="true">↗</span></a></section><section class="side-card guidelines"><h3>社区小约定</h3><ul><li>尊重不同观点，友善讨论。</li><li>发布真实、有用的信息。</li><li>不公开他人的个人隐私。</li><li>闲置交易请自行核实信息。</li></ul><div class="side-foot">共同维护一个舒服的交流空间。</div></section><div class="quiet-note">每一次分享，都让校园多一种可能。</div></aside>
+</div>
+{% endblock %}
+

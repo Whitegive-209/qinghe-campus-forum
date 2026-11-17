@@ -1,0 +1,10 @@
+{
+  "database": "qinghe_forum_perf",
+  "users": 200,
+  "posts": 1000,
+  "comments": 5000,
+  "initial_likes": 999,
+  "target_post": 1,
+  "first_username": "perf_001",
+  "说明": "CSV仅含合成测试账号，禁止用于真实用户；反复执行不会清库。"
+}

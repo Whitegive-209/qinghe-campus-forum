@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block title %}{{ profile_user.display_name }}的主页 · 青禾校园{% endblock %}
+{% block content %}<div class="breadcrumb"><a href="{% url 'home' %}">发现校园</a><span>/</span>个人主页</div><section class="profile-card"><div class="avatar avatar-large">{{ profile_user.display_name|first }}</div><div><p class="eyebrow">校园里的分享者</p><h1>{{ profile_user.display_name }}</h1><p>{{ profile_user.bio|default:'还没有填写简介，先从一篇帖子认识TA。' }}</p><small class="muted">加入于 {{ profile_user.date_joined|date:'Y年m月d日' }}</small></div>{% if user.pk == profile_user.pk %}<a class="button button-outline" href="{% url 'profile_edit' %}">编辑资料</a>{% endif %}</section><div class="profile-feed"><h2>发布的帖子</h2>{% include 'forum/post_list.html' %}{% include 'forum/pagination.html' %}</div>{% endblock %}
+

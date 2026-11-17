@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block title %}登录 · 青禾校园{% endblock %}
+{% block content %}<div class="form-shell auth-shell"><a class="back-link" href="{% url 'home' %}">← 返回校园动态</a><section class="form-card"><p class="eyebrow">欢迎回来</p><h1>继续你的校园故事。</h1><p class="muted">登录后发帖、回复，也为好内容点个赞。</p><form method="post" class="stacked-form">{% csrf_token %}{{ form.as_p }}<input type="hidden" name="next" value="{{ next }}"><button class="button" type="submit">登录</button></form><p class="auth-switch">还没有账号？<a href="{% url 'register' %}">创建账号</a></p></section></div>{% endblock %}
+

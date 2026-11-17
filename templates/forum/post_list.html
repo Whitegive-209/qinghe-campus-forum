@@ -1,0 +1,6 @@
+<div class="post-list">
+{% for item in page_obj %}
+<article class="post-card" data-post-id="{{ item.pk }}"><div class="post-top"><a class="avatar" href="{% url 'profile' item.author.pk %}" aria-label="查看{{ item.author.display_name }}的资料">{{ item.author.display_name|first }}</a><div class="post-author"><a href="{% url 'profile' item.author.pk %}">{{ item.author.display_name }}</a><time datetime="{{ item.created_at|date:'c' }}">{{ item.created_at|date:'m月d日 H:i' }}</time></div><a class="category-label" href="{% url 'home' %}?category={{ item.category.slug }}">{{ item.category.name }}</a></div><h3><a href="{% url 'post_detail' item.pk %}">{{ item.title }}</a></h3><p class="post-excerpt">{{ item.body|truncatechars:110 }}</p><div class="post-meta"><span>♡ {{ item.like_count }} 点赞</span><span>○ {{ item.comment_count }} 评论</span><a href="{% url 'post_detail' item.pk %}">参与讨论 <span aria-hidden="true">→</span></a></div></article>
+{% empty %}<div class="empty-state"><span class="empty-symbol" aria-hidden="true">✎</span><h3>{% if q %}暂时没有找到相关帖子{% else %}这里还没有帖子{% endif %}</h3><p>{% if q %}试试更短的关键词，或返回全部帖子。{% else %}分享一个问题或一段校园故事，让讨论开始吧。{% endif %}</p><a class="button" href="{% if q %}{% url 'home' %}{% else %}{% url 'post_create' %}{% endif %}">{% if q %}查看全部帖子{% else %}发布第一篇帖子{% endif %}</a></div>{% endfor %}
+</div>
+

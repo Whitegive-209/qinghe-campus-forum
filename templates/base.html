@@ -1,0 +1,27 @@
+{% load static %}
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}青禾校园 · 让校园里的想法相遇{% endblock %}</title>
+  <meta name="description" content="青禾校园论坛，交流学习、校园生活与闲置好物。">
+  <link rel="stylesheet" href="{% static 'forum.css' %}">
+  <script src="{% static 'forum.js' %}" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳至内容</a>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="{% url 'home' %}"><span class="brand-mark" aria-hidden="true">青</span><span>青禾校园<small>校园里的每一种声音</small></span></a>
+  <nav aria-label="主导航"><a href="{% url 'home' %}">发现校园</a><a href="{% url 'home' %}?sort=hot">热门讨论</a></nav>
+  <div class="account-nav">
+  {% if user.is_authenticated %}<a class="user-link" href="{% url 'profile' user.pk %}">{{ user.display_name }}</a><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="text-button" type="submit">退出</button></form>
+  {% else %}<a href="{% url 'login' %}">登录</a><a class="button button-small" href="{% url 'register' %}">加入校园</a>{% endif %}
+  </div>
+</div></header>
+<main id="main" class="container">
+  {% if messages %}<div class="messages" aria-live="polite">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="site-footer"><div class="container footer-inner"><span>青禾校园 <span class="muted">/</span> 交流，让校园更近一点。</span><span>友善表达 · 尊重原创 · 保护隐私</span></div></footer>
+</body></html>
+

@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block title %}删除帖子 · 青禾校园{% endblock %}
+{% block content %}<section class="form-card delete-card"><p class="eyebrow">操作确认</p><h1>确定删除这篇帖子？</h1><p>「{{ post.title }}」及其全部评论、点赞将被删除，此操作无法撤销。</p><form method="post" class="inline-form">{% csrf_token %}<button class="button button-danger" type="submit">确认删除帖子</button><a class="button button-outline" href="{% url 'post_detail' post.pk %}">保留帖子</a></form></section>{% endblock %}
+
